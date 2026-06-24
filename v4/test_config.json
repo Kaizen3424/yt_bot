@@ -1,0 +1,10 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "proxy_file": "test_proxy.txt",
+  "headless": true,
+  "max_parallel_workers": 2,
+  "min_watch_percentage": 5,
+  "max_watch_percentage": 8,
+  "like_probability": 0.0,
+  "comment_probability": 0.0
+}

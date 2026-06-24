@@ -1,0 +1,17 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=0pplsOxw-mo",
+  "proxy_file": "proxy.txt",
+  "headless": true,
+  "max_parallel_workers": 2,
+  "min_watch_percentage": 70,
+  "max_watch_percentage": 90,
+  "like_probability": 0.6,
+  "comment_probability": 0.4,
+  "comments": [
+    "Amazing video! Thanks for sharing.",
+    "Really helpful content, keep it up!",
+    "Great work!",
+    "Loved the explanation here.",
+    "This deserves way more views!"
+  ]
+}
