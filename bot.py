@@ -409,14 +409,42 @@ async def watch_with_proxy(proxy_str, worker_id, config):
         except Exception:
             pass
 
+async def check_proxy_alive(proxy_str, timeout=5):
+    try:
+        proxy_host = proxy_str.split('@')[-1]
+        hostname = proxy_host.split(':')[0]
+        port = int(proxy_host.split(':')[1])
+        _, writer = await asyncio.wait_for(
+            asyncio.open_connection(hostname, port),
+            timeout=timeout
+        )
+        writer.close()
+        return True
+    except Exception:
+        return False
+
 async def worker_loop(queue, worker_id, config, results):
     while True:
         try:
             proxy_str = queue.get_nowait()
         except asyncio.QueueEmpty:
             break
-            
+        
+        proxy_display = proxy_str.split('@')[-1] if '@' in proxy_str else proxy_str
+        prefix = f"[Worker-{worker_id}]"
+        
+        alive = await check_proxy_alive(proxy_str)
+        if not alive:
+            print(f"{prefix} Proxy {proxy_display} is unreachable. Skipping.")
+            results.append((proxy_str, False))
+            queue.task_done()
+            continue
+        
         success = await watch_with_proxy(proxy_str, worker_id, config)
+        if not success:
+            print(f"{prefix} First attempt failed. Retrying {proxy_display}...")
+            success = await watch_with_proxy(proxy_str, worker_id, config)
+        
         results.append((proxy_str, success))
         queue.task_done()
 
