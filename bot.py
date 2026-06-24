@@ -17,7 +17,7 @@ def load_config():
         "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         "proxy_file": "proxy.txt",
         "cookies_file": "cookies.json",
-        "headless": False,
+        "headless": True,
         "max_parallel_workers": 3,
         "min_watch_percentage": 40,
         "max_watch_percentage": 90,
